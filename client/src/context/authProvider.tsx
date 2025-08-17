@@ -1,15 +1,17 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { fetchCurrentUser } from '../api/auth';
+
 type User = {
+  _id?: string;
   email: string;
-  password: string;
-  confirmPassword?: string;
   role: string;
+  name?: string;
 };
+
 type AuthContextType = {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   error: string | null;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 };
@@ -21,9 +23,35 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetchCurrentUser();
+        if (response) {
+          setUser(response);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ user, setUser, loading, setLoading, error, setError }}
+      value={{
+        user,
+        setUser,
+        loading,
+        error,
+        setError,
+      }}
     >
       {children}
     </AuthContext.Provider>

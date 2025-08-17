@@ -10,22 +10,33 @@ import Dashboard from './pages/dashBoard';
 import Employee from './pages/dashBoard/components/Employee';
 import DashboardLayout from './pages/dashBoard/DashBoardLayout';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/authProvider';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path='/signin' element={<SignIn />} />
       <Route path='/signup' element={<Signup />} />
-      <Route path='/' element={<DashboardLayout />}>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='employee' element={<Employee />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path='/' element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path='employee' element={<Employee />} />
+        </Route>
       </Route>
+
       <Route path='*' element={<NotFound />} />
     </Route>
   )
 );
 
 function AppRouter() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default AppRouter;

@@ -4,7 +4,9 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const signIn = async (formData: any) => {
   try {
-    const response = await axios.post(`${API_URL}/api/v1/auth/signin`, formData);
+    const response = await axios.post(`${API_URL}/api/v1/auth/signin`, formData, {
+      withCredentials: true,
+    });
     return response.data?.user;
   } catch (error) {
     console.error(error);
@@ -12,7 +14,20 @@ export const signIn = async (formData: any) => {
 };
 export const signUp = async (formData: any) => {
   try {
-    const response = await axios.post(`${API_URL}/api/v1/auth/signup`, formData);
+    const response = await axios.post(`${API_URL}/api/v1/auth/signup`, formData, {
+      withCredentials: true,
+    });
+    return response.data?.user;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchCurrentUser = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/api/v1/auth/fetchCurrentUser`, {
+      withCredentials: true,
+    });
     return response.data?.user;
   } catch (error) {
     console.error(error);

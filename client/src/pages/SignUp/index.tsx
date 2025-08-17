@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { signUp } from '@/api/auth';
 import PasswordInput from '@/components/passwordInput';
 import AuthButtons from '@/components/AuthButtons';
+import { useAuth } from '@/context/authProvider';
 
 const formSchema = z
   .object({
@@ -34,6 +35,8 @@ const formSchema = z
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: '',
@@ -44,9 +47,16 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
-    const response = await signUp(data);
-    console.log(response);
+    try {
+      const user = await signUp(data);
+      if (user) {
+        setUser(user);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Sign up failed:', error);
+      // You might want to show an error message to the user here
+    }
   };
 
   return (

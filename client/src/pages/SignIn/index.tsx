@@ -17,6 +17,8 @@ import { MailIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '@/api/auth';
 import AuthButtons from '@/components/AuthButtons';
+import { useAuth } from '@/context/authProvider';
+
 const formSchema = z.object({
   email: z.email(),
   password: z.string().min(8, 'Password must be at least 8 characters long'),
@@ -25,6 +27,8 @@ const formSchema = z.object({
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: '',
@@ -35,9 +39,15 @@ const SignIn = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const response = await signIn(data);
-    if (response) {
-      navigate('/dashboard');
+    try {
+      const user = await signIn(data);
+      if (user) {
+        setUser(user);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Sign in failed:', error);
+      // You might want to show an error message to the user here
     }
   };
 
