@@ -25,9 +25,7 @@ const createSendToken = (user, statusCode, res) => {
   res.status(statusCode).json({
     status: 'success',
     token,
-    data: {
-      user,
-    },
+    user,
   });
 };
 
@@ -75,7 +73,8 @@ export const signin = async (req, res, next) => {
       });
     }
     const user = await User.findOne({ email }).select('+password');
-    if (!user || !(await user.correctPassword(password, user.password))) {
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!user || !isPasswordCorrect) {
       return res.status(401).json({
         status: 'fail',
         message: 'Incorrect email or password',
@@ -92,9 +91,6 @@ export const signin = async (req, res, next) => {
 };
 
 export const logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true,
-  });
+  res.clearCookie('jwt');
   res.status(200).json({ status: 'success' });
 };
