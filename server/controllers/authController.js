@@ -97,7 +97,7 @@ export const googleCallback = (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
   });
-  res.redirect('http://localhost:5173/');
+  res.redirect(`${process.env.CLIENT_URL}`);
 };
 
 export const logout = (req, res) => {
