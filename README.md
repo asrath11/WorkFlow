@@ -20,7 +20,6 @@ A modern full-stack web application for managing employees with authentication a
 
 - **Modern UI**
   - Responsive design
-  - Dark/light mode support
   - Intuitive dashboard
 
 ## Tech Stack
@@ -152,8 +151,8 @@ VITE_API_BASE_URL=http://localhost:5000/api
 1. Set up a production MongoDB database
 2. Configure environment variables in production
    ```bash
-   npm install -g nodemon
-   nodemon start app.js
+   npm install
+   node app.js
    ```
 
 ### Frontend
