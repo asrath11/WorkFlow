@@ -145,20 +145,6 @@ FACEBOOK_APP_SECRET=your_facebook_app_secret
 VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
-### Backend Tests
-
-```bash
-cd server
-npm test
-```
-
-### Frontend Tests
-
-```bash
-cd client
-npm test
-```
-
 ## Deployment
 
 ### Backend
