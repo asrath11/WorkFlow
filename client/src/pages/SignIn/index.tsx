@@ -16,6 +16,7 @@ import { z } from 'zod';
 import { MailIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '@/api/auth';
+import AuthButtons from '@/components/AuthButtons';
 const formSchema = z.object({
   email: z.email(),
   password: z.string().min(8, 'Password must be at least 8 characters long'),
@@ -35,7 +36,9 @@ const SignIn = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const response = await signIn(data);
-    console.log(response);
+    if (response) {
+      navigate('/dashboard');
+    }
   };
 
   return (
@@ -125,6 +128,7 @@ const SignIn = () => {
               <MailIcon className='mr-2 h-4 w-4' />
               Sign Up with Email
             </Button>
+            <AuthButtons />
           </div>
         </div>
       </div>

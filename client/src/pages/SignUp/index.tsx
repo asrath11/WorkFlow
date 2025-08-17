@@ -16,6 +16,7 @@ import { MailIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '@/api/auth';
 import PasswordInput from '@/components/passwordInput';
+import AuthButtons from '@/components/AuthButtons';
 
 const formSchema = z
   .object({
@@ -150,6 +151,7 @@ const SignUp = () => {
           <div className='max-w-xs m-auto w-full flex flex-col items-center justify-center h-full space-y-2'>
             <p className='text-muted-foreground'>Already have an account?</p>
             <Button onClick={() => navigate('/signin')}>Login</Button>
+            <AuthButtons />
           </div>
         </div>
       </div>
