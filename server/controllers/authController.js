@@ -73,8 +73,7 @@ export const signin = async (req, res, next) => {
       });
     }
     const user = await User.findOne({ email }).select('+password');
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!user || !isPasswordCorrect) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({
         status: 'fail',
         message: 'Incorrect email or password',
@@ -96,6 +95,7 @@ export const googleCallback = (req, res) => {
     expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None',
   });
   res.redirect(`${process.env.CLIENT_URL}`);
 };
