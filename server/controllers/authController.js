@@ -95,7 +95,6 @@ export const googleCallback = (req, res) => {
     expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'None',
   });
   res.redirect(`${process.env.CLIENT_URL}`);
 };
