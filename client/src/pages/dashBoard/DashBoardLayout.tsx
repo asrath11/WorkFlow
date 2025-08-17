@@ -3,7 +3,7 @@ import SideBar from './components/SideBar';
 import { HomeIcon, Users, Calendar, ListTodo, Settings } from 'lucide-react';
 
 const menuItems = [
-  { title: 'Dashboard', icon: <HomeIcon />, path: '/dashboard' },
+  { title: 'Dashboard', icon: <HomeIcon />, path: '/' },
   { title: 'Employees', icon: <Users />, path: '/employee' },
   { title: 'Attendance', icon: <Calendar />, path: '/attendance' },
   { title: 'Tasks', icon: <ListTodo />, path: '/tasks' },
@@ -21,7 +21,7 @@ export default function DashboardLayout() {
         activePath={location.pathname}
         onSelect={(path) => navigate(path)}
       />
-      <div className='flex-1 bg-primary/10 p-4'>
+      <div className='flex-1 bg-primary/10 p-10'>
         <Outlet /> {/* shows the page for the active route */}
       </div>
     </div>
