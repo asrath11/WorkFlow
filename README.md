@@ -145,14 +145,6 @@ FACEBOOK_APP_SECRET=your_facebook_app_secret
 VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
-## API Documentation
-
-API endpoints are documented using OpenAPI/Swagger. After starting the server, visit:
-
-- `http://localhost:5000/api-docs` for interactive API documentation
-
-## Testing
-
 ### Backend Tests
 
 ```bash
