@@ -1,14 +1,17 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import passport from 'passport';
+
 import connectDb from './connectDb.js';
 import authRoutes from './routes/authRoutes.js';
 import employeeRoutes from './routes/employeeRoutes.js';
-
-dotenv.config();
+import './config/passport.js';
 
 const app = express();
 
@@ -25,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cookieParser());
+app.use(passport.initialize());
 
 // Routes
 app.use('/api/v1/auth', authRoutes);

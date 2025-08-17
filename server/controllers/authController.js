@@ -90,6 +90,26 @@ export const signin = async (req, res, next) => {
   }
 };
 
+export const googleCallback = (req, res) => {
+  const token = signToken(req.user._id);
+  res.cookie('jwt', token, {
+    expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  });
+  res.redirect('http://localhost:5173/dashboard');
+};
+
+export const facebookCallback = (req, res) => {
+  const token = signToken(req.user._id);
+  res.cookie('jwt', token, {
+    expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  });
+  res.redirect('http://localhost:5173/dashboard');
+};
+
 export const logout = (req, res) => {
   res.clearCookie('jwt');
   res.status(200).json({ status: 'success' });
