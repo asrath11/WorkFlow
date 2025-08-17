@@ -7,6 +7,7 @@ A modern full-stack web application for managing employees with authentication a
 - **User Authentication**
 
   - Email/Password login
+    - Demo Account Credentials: Email: demo@gmail.com, Password: demo@123
   - Social login (Google, Facebook)
   - JWT-based authentication
   - Protected routes
