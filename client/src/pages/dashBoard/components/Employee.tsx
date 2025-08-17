@@ -67,10 +67,10 @@ function Employee() {
         sortedEmployees.sort((a, b) => a.fullName.localeCompare(b.fullName));
         break;
       case 'active':
-        sortedEmployees.sort((a, b) => (a.status === 'active' ? -1 : 1));
+        sortedEmployees.sort((a, _b) => (a.status === 'active' ? -1 : 1));
         break;
       case 'inactive':
-        sortedEmployees.sort((a, b) => (a.status === 'inactive' ? -1 : 1));
+        sortedEmployees.sort((a, _b) => (a.status === 'inactive' ? -1 : 1));
         break;
       default:
         break;

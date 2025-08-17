@@ -29,7 +29,7 @@ const ChartContainer = ({ month }: { month: number }) => {
         <XAxis dataKey='name' axisLine={false} tickLine={false} />
         <Tooltip />
         <Bar dataKey='employee' barSize={40} radius={[10, 10, 10, 10]}>
-          {data.map((entry, index) => (
+          {data.map((_, index) => (
             <Cell
               key={`cell-${index}`}
               fill={index === month ? '#557bff' : '#e5dbff'} // highlight active
