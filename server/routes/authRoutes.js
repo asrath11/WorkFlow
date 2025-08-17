@@ -5,8 +5,9 @@ import {
   signin,
   logout,
   googleCallback,
-  facebookCallback,
+  fetchCurrentUser,
 } from '../controllers/authController.js';
+import { protect } from '../middleware/protect.js';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ const router = express.Router();
 router.post('/signup', signup);
 router.post('/signin', signin);
 router.get('/logout', logout);
+router.get('/fetchCurrentUser', protect, fetchCurrentUser);
 
 // Google OAuth routes
 router.get(
@@ -30,23 +32,6 @@ router.get(
     failureRedirect: '/login',
   }),
   googleCallback
-);
-
-// Facebook OAuth routes
-router.get(
-  '/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email'],
-  })
-);
-
-router.get(
-  '/facebook/callback',
-  passport.authenticate('facebook', {
-    session: false,
-    failureRedirect: '/login',
-  }),
-  facebookCallback
 );
 
 export default router;

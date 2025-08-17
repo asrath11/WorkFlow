@@ -97,20 +97,14 @@ export const googleCallback = (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
   });
-  res.redirect('http://localhost:5173/dashboard');
-};
-
-export const facebookCallback = (req, res) => {
-  const token = signToken(req.user._id);
-  res.cookie('jwt', token, {
-    expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-  });
-  res.redirect('http://localhost:5173/dashboard');
+  res.redirect('http://localhost:5173/');
 };
 
 export const logout = (req, res) => {
   res.clearCookie('jwt');
   res.status(200).json({ status: 'success' });
+};
+
+export const fetchCurrentUser = (req, res) => {
+  res.status(200).json({ user: req.user });
 };

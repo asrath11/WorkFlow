@@ -1,4 +1,6 @@
 // Protect middleware to be used in routes that require authentication
+import jwt from 'jsonwebtoken';
+import User from '../models/userModel.js';
 export const protect = async (req, res, next) => {
   try {
     // 1) Getting token and check if it's there
@@ -11,7 +13,6 @@ export const protect = async (req, res, next) => {
     } else if (req.cookies.jwt) {
       token = req.cookies.jwt;
     }
-
     if (!token) {
       return res.status(401).json({
         status: 'fail',
@@ -20,7 +21,7 @@ export const protect = async (req, res, next) => {
     }
 
     // 2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id);
