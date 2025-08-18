@@ -11,11 +11,9 @@ import {
 } from '@/components/ui/select';
 import { Calendar } from '@/components/ui/calendar';
 import ChartContainer from '@/components/ChartContainer';
-
 function Dashboard() {
   const [totalEmployees, setTotalEmployees] = useState(0);
   const [date, setDate] = useState<Date | undefined>(new Date());
-
   useEffect(() => {
     const fetchTotalEmployees = async () => {
       try {
@@ -28,7 +26,6 @@ function Dashboard() {
     };
     fetchTotalEmployees();
   }, []);
-
   return (
     <div className='space-y-8'>
       <div className='grid lg:grid-cols-3 w-full gap-8 sm:grid-cols-1 sm:place-items-center'>
