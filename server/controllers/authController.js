@@ -95,9 +95,7 @@ export const googleCallback = (req, res) => {
     expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Lax',
   });
-  console.log(res.get('Set-Cookie'));
   res.redirect(`${process.env.CLIENT_URL}`);
 };
 
@@ -107,5 +105,17 @@ export const logout = (req, res) => {
 };
 
 export const fetchCurrentUser = (req, res) => {
-  res.status(200).json({ user: req.user });
+  if (!req.user) {
+    return res
+      .status(401)
+      .json({ status: 'error', message: 'Not authenticated' });
+  }
+  res.status(200).json({
+    status: 'success',
+    user: {
+      _id: req.user._id,
+      email: req.user.email,
+      role: req.user.role,
+    },
+  });
 };
