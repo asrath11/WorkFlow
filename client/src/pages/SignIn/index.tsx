@@ -27,8 +27,7 @@ const formSchema = z.object({
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { setUser, user } = useAuth();
-  console.log(user);
+  const { setUser } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
