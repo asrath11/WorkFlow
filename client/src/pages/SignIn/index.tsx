@@ -55,7 +55,7 @@ const SignIn = () => {
     try {
       const demoCredentials = {
         email: 'demo@example.com',
-        password: 'demopassword123',
+        password: 'demo@123',
         role: 'user' as const,
       };
 
