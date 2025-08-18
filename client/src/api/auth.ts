@@ -28,8 +28,9 @@ export const fetchCurrentUser = async () => {
     const response = await axios.get(`${API_URL}/api/v1/auth/fetchCurrentUser`, {
       withCredentials: true,
     });
-    return response.data?.user;
+    return response.data?.user || null;
   } catch (error: any) {
     console.error(error.response?.data?.message || 'fetchCurrentUser failed');
+    return null;
   }
 };
