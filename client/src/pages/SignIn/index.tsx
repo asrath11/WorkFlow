@@ -51,6 +51,26 @@ const SignIn = () => {
     }
   };
 
+  const handleDemoLogin = async () => {
+    try {
+      const demoCredentials = {
+        email: 'demo@example.com',
+        password: 'demopassword123',
+        role: 'user' as const,
+      };
+
+      // Submit the form
+      const user = await signIn(demoCredentials);
+      if (user) {
+        setUser(user);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Demo login failed:', error);
+      // You might want to show an error message to the user here
+    }
+  };
+
   return (
     <div className='h-screen flex items-center justify-center'>
       <div className='w-full h-full grid lg:grid-cols-2'>
@@ -127,6 +147,14 @@ const SignIn = () => {
               />
               <Button type='submit' className='mt-4 w-full'>
                 Login
+              </Button>
+              <Button
+                type='button'
+                variant='outline'
+                className='mt-2 w-full bg-blue-50 hover:bg-blue-100 text-blue-600'
+                onClick={handleDemoLogin}
+              >
+                Try Demo Account
               </Button>
             </form>
           </Form>
