@@ -97,7 +97,7 @@ export const googleCallback = (req, res) => {
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
   });
-  res.redirect(`${process.env.CLIENT_URL}`);
+  res.redirect(`${process.env.CLIENT_URL}/`);
 };
 
 export const logout = (req, res) => {
