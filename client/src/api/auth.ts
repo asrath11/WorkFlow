@@ -8,8 +8,8 @@ export const signIn = async (formData: any) => {
       withCredentials: true,
     });
     return response.data?.user;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.error(error.response?.data?.message || 'signIn failed');
   }
 };
 export const signUp = async (formData: any) => {
@@ -18,8 +18,8 @@ export const signUp = async (formData: any) => {
       withCredentials: true,
     });
     return response.data?.user;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.error(error.response?.data?.message || 'signUp failed');
   }
 };
 
@@ -29,7 +29,7 @@ export const fetchCurrentUser = async () => {
       withCredentials: true,
     });
     return response.data?.user;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.error(error.response?.data?.message || 'fetchCurrentUser failed');
   }
 };

@@ -54,10 +54,12 @@ const SignIn = () => {
   const handleDemoLogin = async () => {
     try {
       const demoCredentials = {
-        email: 'demo@example.com',
+        email: 'demo@gmail.com',
         password: 'demo@123',
         role: 'user' as const,
       };
+      form.setValue('email', demoCredentials.email);
+      form.setValue('password', demoCredentials.password);
 
       // Submit the form
       const user = await signIn(demoCredentials);
